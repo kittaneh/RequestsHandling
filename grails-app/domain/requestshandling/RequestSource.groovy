@@ -12,7 +12,7 @@ class RequestSource {
 
     String requestId  //UUID request id
     String userAgent
-    String source  // source domainName or IP
+    String source  //source domainName or IP
 
     static constraints = {
         requestId nullable: true
