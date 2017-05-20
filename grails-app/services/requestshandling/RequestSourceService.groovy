@@ -2,19 +2,21 @@ package requestshandling
 
 import grails.transaction.Transactional
 
+/**
+ *  @purpose: persist, and query data stored in the RequestSource domain class
+ *  @author: Yahya Kittaneh
+ *  @email: kittaneh@gmail.com
+ */
 @Transactional
 class RequestSourceService {
 
-
     /**
-     *
-     * @param requestSource
-     * @return
+     *  persists RequestSource domain class
      */
     @Transactional
     RequestSource handleRequest(RequestSource requestSource) {
 
-        //again null argument is not welcomed !
+        //null argument is not welcomed !
         if (!requestSource)
             throw new RuntimeException("requestSource cannot be null")
 
@@ -34,9 +36,9 @@ class RequestSourceService {
     }
 
     /**
-     *
-     * @param numberOfTops
-     * @return
+     *  query the top N sources, when provided the numberOfTops integer
+     *  when numberOfTops is provided with negative or zero value the
+     *  method will assume returning all data
      */
     List topFreqSources(int numberOfTops) {
 
@@ -44,6 +46,7 @@ class RequestSourceService {
         if (numberOfTops <= 0)
             numberOfTops = -1
 
+        //use hql to return data as list of maps
         return RequestSource.executeQuery(""" select new map(rs.source as source, count(rs) as numberOfRequests)
                                                      from RequestSource rs
                                                      group by  rs.source
