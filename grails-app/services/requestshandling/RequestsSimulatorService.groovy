@@ -19,11 +19,12 @@ import org.apache.http.protocol.RequestUserAgent
 
 class RequestsSimulatorService {
 
+    //dependency injection using spring
     def requestSourceService
 
     /**
-     *
-     * @param sources
+     * simulates http requests using Apache HttpCore
+     * customizes request header values
      */
     void simulate(ArrayList<String> sources) {
 
