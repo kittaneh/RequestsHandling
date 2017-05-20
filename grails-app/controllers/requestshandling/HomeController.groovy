@@ -1,26 +1,38 @@
 package requestshandling
 
+import grails.converters.JSON
+
 class HomeController {
 
     def requestsSlicerService
+    def requestSourceService
+    def requestsSimulatorService
     def grailsApplication
 
-    def index() {
+    def index() {}
 
-        //def sources = ['10.10.3.4','dc1.mv.com']
-        //requestsSlicerService.simulateRequests(sources)
-        println requestsSlicerService.topFreqSources(10)
-        //requestsSlicerService.parseAccessLogFile("data/sample_access_log_2")
-        //requestsSlicerService.sliceAccessLogFile("data/sample_access_log_2")
+    def foo() {}
 
-
-
+    def slice(){
+        requestsSlicerService.sliceAccessLogFile("data/sample_access_log_2")
     }
 
-    def bar(){
+    def parse(){
         String slicePath = grailsApplication.config.requestsSlicer.slicePath
         requestsSlicerService.parseLogSlices(slicePath)
     }
 
-    def foo() {}
+    def simulate(){
+        def sources = ['10.10.3.4','dc1.mv.com']
+        requestsSimulatorService.simulate(sources)
+    }
+
+    def top(){
+        int id = params.id ? params.int('id'):-1
+        def returnedDtata = [:]
+        returnedDtata.put("top",(requestSourceService.topFreqSources(id)  as JSON))
+       // println requestSourceService.topFreqSources(id) as JSON
+        return [returnedData:returnedDtata]
+    }
+
 }
