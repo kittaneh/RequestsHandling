@@ -51,9 +51,9 @@ class HomeController {
      */
     def top(){
         int id = params.id ? params.int('id'):-1
-        def returnedDtata = [:]
-        returnedDtata.put("top",(requestSourceService.topFreqSources(id)  as JSON))
-        return [returnedData:returnedDtata]
+        def returnedData = [:]
+        returnedData.put("top",(requestSourceService.topFreqSources(id)  as JSON))
+        return [returnedData:returnedData]
     }
 
 }
